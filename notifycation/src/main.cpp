@@ -20,7 +20,7 @@ int main(int argc, char *argv[])
     if(3 <= args_count) appName = args.at(2);
     QString title("Title Persistent");
     if(4 <= args_count) title = args.at(3);
-    QString text("Text");
+    QString text("Text trash:/");
     if(5 <= args_count) text = args.at(4);
 
     KNotification *notification = new KNotification(event);
@@ -28,7 +28,7 @@ int main(int argc, char *argv[])
     notification->setTitle(title);
     notification->setText(text);
     notification->setFlags(KNotification::Persistent);
-    notification->setUrls({QUrl::fromUserInput(QStringLiteral("trash:/"))});
+    notification->setUrls({QUrl(QStringLiteral("trash:/"))});
 
 
     // gdbus call --session --dest org.freedesktop.Notifications --object-path /org/freedesktop/Notifications --method org.freedesktop.Notifications.Notify "notifytest" 0 "" "Title" "Message" "[\"OK\",\"OK\"]" "{}" 3000
