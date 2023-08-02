@@ -26,7 +26,7 @@ int main(int argc, char *argv[])
                      {
                          qDebug() << "you replied with" << text;
                      });
-    notification->setReplyAction(std::move(replyAction));
+    //notification->setReplyAction(std::move(replyAction));
 
     QObject::connect(notification, &KNotification::closed, &app, [&app, notification](){
         qDebug() << "closed" << notification->appName();
