@@ -11,8 +11,8 @@ int main(int argc, char *argv[])
     QCoreApplication app(argc, argv);
     qDebug() << "started";
 
-    KNotification *notification = new KNotification("notifyid");
-    notification->setComponentName(QStringLiteral("koko"));
+    KNotification *notification = new KNotification("nid");
+    notification->setComponentName(QStringLiteral("plasma_phone_components"));
     notification->setTitle(QStringLiteral("Title"));
     notification->setText(QString("Text"));
 
