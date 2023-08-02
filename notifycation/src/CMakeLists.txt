@@ -16,16 +16,6 @@ find_package(Qt5 CONFIG REQUIRED
 
 find_package(KF5Notifications REQUIRED)
 
-#include_directories(/usr/include/qt5)
-#include_directories(/usr/include/qt5/QtCore)
-#include_directories(/usr/include/qt5/QtGui)
-#include_directories(/usr/include/KF5/KNotifications)
-#include_directories(/usr/include/KF5/KCoreAddons)
-#include_directories(/usr/include/KF5/KI18n)
-
-#add_definitions(-DQT_QML_DEBUG)
-#set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fPIC")
-
 add_executable(${CMAKE_PROJECT_NAME} "main.cpp")
 
 target_compile_definitions(${CMAKE_PROJECT_NAME} PRIVATE $<$<OR:$<CONFIG:Debug>,$<CONFIG:RelWithDebInfo>>:QT_QML_DEBUG>)
@@ -35,7 +25,6 @@ target_link_libraries(
     Qt5::Widgets
     KF5::Notifications
 )
-# qt5_use_modules(${CMAKE_PROJECT_NAME} Widgets Quick DBus)
 
 file(WRITE "${CMAKE_PROJECT_NAME}.notifyrc" "[Global]
 Name=${CMAKE_PROJECT_NAME}
@@ -43,7 +32,8 @@ Action=Taskbar|Sound|Popup|Logfile|TTS
 [Event/test1]
 Name=Test_1
 Comment=Test 1
-Action=Taskbar|Sound|Popup|Logfile|TTS
+#Action=Taskbar|Sound|Popup|Logfile|TTS
+Action=Popup|Logfile
 ")
 
 #include(FeatureSummary)

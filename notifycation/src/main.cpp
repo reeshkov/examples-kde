@@ -11,22 +11,34 @@ int main(int argc, char *argv[])
     QCoreApplication app(argc, argv);
     qDebug() << "started";
 
-    KNotification *notification = new KNotification("test1");
-    notification->setComponentName(QStringLiteral("notifytest"));
-    notification->setTitle(QStringLiteral("Title"));
-    notification->setText(QString("Text"));
+    QStringList args(QCoreApplication::arguments());
+    int args_count = args.count();
+    qDebug() << "args" << args_count << args;
+    Qstring event("test1");
+    if(1 <= args_count) event = args.at(0);
+    Qstring appName("notifytest");
+    if(2 <= args_count) appName = args.at(1);
+    Qstring title("Title");
+    if(3 <= args_count) title = args.at(2);
+    Qstring text("Text");
+    if(4 <= args_count) text = args.at(3);
+
+    KNotification *notification = new KNotification(event);
+    notification->setComponentName(QStringLiteral(appName));
+    notification->setTitle(QStringLiteral(title));
+    notification->setText(QString(text));
 
 
-    //QStringList actions{QStringLiteral("OK")};
-    //notification->setActions(actions);
+    QStringList actions{QStringLiteral("OK")};
+    notification->setActions(actions);
 
-    auto replyAction = std::unique_ptr<KNotificationReplyAction>(new KNotificationReplyAction(QStringLiteral("Reply")));
-    replyAction->setPlaceholderText(QStringLiteral("Reply to Dave..."));
-    QObject::connect(replyAction.get(), &KNotificationReplyAction::replied, [](const QString &text)
-                     {
-                         qDebug() << "you replied with" << text;
-                     });
-    //notification->setReplyAction(std::move(replyAction));
+//    auto replyAction = std::unique_ptr<KNotificationReplyAction>(new KNotificationReplyAction(QStringLiteral("Reply")));
+//    replyAction->setPlaceholderText(QStringLiteral("Reply to Dave..."));
+//    QObject::connect(replyAction.get(), &KNotificationReplyAction::replied, [](const QString &text)
+//                     {
+//                         qDebug() << "you replied with" << text;
+//                     });
+//    notification->setReplyAction(std::move(replyAction));
 
     QObject::connect(notification, &KNotification::closed, &app, [&app, notification](){
         qDebug() << "closed" << notification->appName();
