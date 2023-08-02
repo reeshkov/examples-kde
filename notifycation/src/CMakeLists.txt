@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.16)
 
-project(notifycation LANGUAGES CXX)
+project(notifytest LANGUAGES CXX)
 
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 set(CMAKE_AUTOMOC ON)
@@ -39,7 +39,12 @@ target_link_libraries(
 
 file(WRITE "${CMAKE_PROJECT_NAME}.notifyrc" "[Global]
 Name=${CMAKE_PROJECT_NAME}
-Action=Taskbar|Sound|Popup|Logfile|TTS")
+Action=Taskbar|Sound|Popup|Logfile|TTS
+[Event/test1]
+Name=Test_1
+Comment=Test 1
+Action=Taskbar|Sound|Popup|Logfile|TTS
+")
 
 #include(FeatureSummary)
 #find_package(ECM 5.97.0 NO_MODULE)
