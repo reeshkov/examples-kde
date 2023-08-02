@@ -18,7 +18,7 @@ int main(int argc, char *argv[])
     if(2 <= args_count) event = args.at(1);
     QString appName("notifytest");
     if(3 <= args_count) appName = args.at(2);
-    QString title("Title");
+    QString title("Title Persistent");
     if(4 <= args_count) title = args.at(3);
     QString text("Text");
     if(5 <= args_count) text = args.at(4);
