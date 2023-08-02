@@ -27,8 +27,11 @@ int main(int argc, char *argv[])
     notification->setComponentName(appName);
     notification->setTitle(title);
     notification->setText(text);
+    notification->setFlags(KNotification::Persistent);
+    notification->setUrls({QUrl::fromUserInput(QStringLiteral("trash:/"))});
 
 
+    // gdbus call --session --dest org.freedesktop.Notifications --object-path /org/freedesktop/Notifications --method org.freedesktop.Notifications.Notify "notifytest" 0 "" "Title" "Message" "[\"OK\",\"OK\"]" "{}" 3000
     QStringList actions{QStringLiteral("OK")};
     notification->setActions(actions);
 
