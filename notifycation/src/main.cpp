@@ -14,19 +14,19 @@ int main(int argc, char *argv[])
     QStringList args(QCoreApplication::arguments());
     int args_count = args.count();
     qDebug() << "args" << args_count << args;
-    Qstring event("test1");
-    if(1 <= args_count) event = args.at(0);
-    Qstring appName("notifytest");
-    if(2 <= args_count) appName = args.at(1);
-    Qstring title("Title");
-    if(3 <= args_count) title = args.at(2);
-    Qstring text("Text");
-    if(4 <= args_count) text = args.at(3);
+    QString event("test1");
+    if(2 <= args_count) event = args.at(1);
+    QString appName("notifytest");
+    if(3 <= args_count) appName = args.at(2);
+    QString title("Title");
+    if(4 <= args_count) title = args.at(3);
+    QString text("Text");
+    if(5 <= args_count) text = args.at(4);
 
     KNotification *notification = new KNotification(event);
-    notification->setComponentName(QStringLiteral(appName));
-    notification->setTitle(QStringLiteral(title));
-    notification->setText(QString(text));
+    notification->setComponentName(appName);
+    notification->setTitle(title);
+    notification->setText(text);
 
 
     QStringList actions{QStringLiteral("OK")};
