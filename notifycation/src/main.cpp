@@ -3,6 +3,8 @@
 #include <QObject>
 #include <QTimer>
 #include <KNotification>
+#include <KNotificationReplyAction>
+//#include <memory>
 
 int main(int argc, char *argv[])
 {
