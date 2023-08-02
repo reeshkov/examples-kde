@@ -1,6 +1,5 @@
 #include <QCoreApplication>
 #include <QDebug>
-#include <QObject>
 #include <QTimer>
 #include <KNotification>
 #include <KNotificationReplyAction>
@@ -18,9 +17,9 @@ int main(int argc, char *argv[])
     if(2 <= args_count) event = args.at(1);
     QString appName("notifytest");
     if(3 <= args_count) appName = args.at(2);
-    QString title("Title Persistent");
+    QString title("Title");
     if(4 <= args_count) title = args.at(3);
-    QString text("Text trash:/");
+    QString text("Text");
     if(5 <= args_count) text = args.at(4);
 
     KNotification *notification = new KNotification(event);
@@ -44,7 +43,7 @@ int main(int argc, char *argv[])
 //    notification->setReplyAction(std::move(replyAction));
 
     QObject::connect(notification, &KNotification::closed, &app, [&app, notification](){
-        qDebug() << "closed" << notification->appName();
+        qDebug() << "closed" << notification->appName() << notification->id();
         app.quit();
     });
     QObject::connect(notification, static_cast<void (KNotification::*)(unsigned int)>(&KNotification::activated), &app, [](unsigned int action){ qDebug() << "activated" << action; }, Qt::QueuedConnection);
