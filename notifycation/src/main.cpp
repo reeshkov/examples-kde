@@ -12,7 +12,7 @@ int main(int argc, char *argv[])
     qDebug() << "started";
 
     KNotification *notification = new KNotification("captured");
-    notification->setComponentName(QStringLiteral("mytest"));
+    notification->setComponentName(QStringLiteral("plasma_phone_components"));
     notification->setTitle(QStringLiteral("Title"));
     notification->setText(QString("Text"));
 
