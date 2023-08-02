@@ -22,7 +22,9 @@ int main(int argc, char *argv[])
     QObject::connect(notification, &KNotification::defaultActivated, &app, [](){ qDebug() << "defaultActivated"; });
 
 
-    QTimer::singleShot(0, notification, SLOT(sendEvent()));
+    QTimer::singleShot(1, notification, SLOT(sendEvent()));
+    
+    qDebug() << "started";
 
     return app.exec();
 }
