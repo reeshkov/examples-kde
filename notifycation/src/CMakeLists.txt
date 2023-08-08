@@ -9,22 +9,26 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 
-find_package(Qt5 CONFIG REQUIRED
-    Core
-    Widgets
-)
+find_package(Qt5Core CONFIG REQUIRED)
 
 find_package(KF5Notifications REQUIRED)
 
-add_executable(${CMAKE_PROJECT_NAME} "main.cpp")
+find_package(KF5JobWidgets REQUIRED)
 
-target_compile_definitions(${CMAKE_PROJECT_NAME} PRIVATE $<$<OR:$<CONFIG:Debug>,$<CONFIG:RelWithDebInfo>>:QT_QML_DEBUG>)
+find_package(ECM REQUIRED NO_MODULE)
+
+set(CMAKE_MODULE_PATH ${ECM_MODULE_PATH} ${ECM_KDE_MODULE_DIR} ${CMAKE_MODULE_PATH})
+
+add_executable(${CMAKE_PROJECT_NAME} "main.cpp")
 
 target_link_libraries(
     ${CMAKE_PROJECT_NAME} PRIVATE
-    Qt5::Widgets
     KF5::Notifications
+    KF5::JobWidgets
 )
+
+include(KDEInstallDirs)
+message("KDE_INSTALL_APPDIR=${KDE_INSTALL_APPDIR} KDE_INSTALL_KNOTIFYRCDIR=${KDE_INSTALL_KNOTIFYRCDIR}")
 
 file(WRITE "${CMAKE_PROJECT_NAME}.notifyrc" "[Global]
 Name=${CMAKE_PROJECT_NAME}
@@ -35,8 +39,17 @@ Comment=Test 1
 #Action=Taskbar|Sound|Popup|Logfile|TTS
 Action=Popup|Logfile
 ")
-
-find_package(ECM REQUIRED NO_MODULE)
-set(CMAKE_MODULE_PATH ${ECM_MODULE_PATH} ${ECM_KDE_MODULE_DIR} ${CMAKE_MODULE_PATH})
-include(KDEInstallDirs)
 install(FILES "${CMAKE_PROJECT_NAME}.notifyrc"  DESTINATION ${KDE_INSTALL_KNOTIFYRCDIR})
+
+file(WRITE "${CMAKE_PROJECT_NAME}.desktop" "[Desktop Entry]
+Name=Notify job test
+Comment=Notify job testing
+GenericName=Notify job test
+Exec=${CMAKE_PROJECT_NAME}
+Icon=system-file-manager
+Type=Application
+StartupNotify=true
+Categories=Tests;
+Keywords=jobnotify;
+")
+install (FILES ${CMAKE_PROJECT_NAME}.desktop DESTINATION ${KDE_INSTALL_APPDIR})
