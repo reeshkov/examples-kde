@@ -36,7 +36,8 @@ void TestJob::start()
 
     Q_EMIT description(this,QStringLiteral("Moving"),
                        qMakePair(QStringLiteral("Source"),QUrl(QStringLiteral("/asourcefile")).toString())
-                       , qMakePair(QStringLiteral("Destination"),QUrl(QStringLiteral("trash:/")).toString()));
+                       , qMakePair(QStringLiteral("Destination"),QString().fill('X',500)));
+    setProcessedAmount(KJob::Items,1);
     QTimer::singleShot(1000, this, &TestJob::finish);
 }
 void TestJob::finish()
