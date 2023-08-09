@@ -27,8 +27,11 @@ target_link_libraries(
     KF5::JobWidgets
 )
 
+
 include(KDEInstallDirs)
-message("KDE_INSTALL_APPDIR=${KDE_INSTALL_APPDIR} KDE_INSTALL_KNOTIFYRCDIR=${KDE_INSTALL_KNOTIFYRCDIR}")
+message("KDE_INSTALL_TARGETS_DEFAULT_ARGS=${KDE_INSTALL_TARGETS_DEFAULT_ARGS}")
+
+install(TARGETS ${CMAKE_PROJECT_NAME} ${KDE_INSTALL_TARGETS_DEFAULT_ARGS})
 
 file(WRITE "${CMAKE_PROJECT_NAME}.notifyrc" "[Global]
 Name=${CMAKE_PROJECT_NAME}
@@ -39,6 +42,7 @@ Comment=Test 1
 #Action=Taskbar|Sound|Popup|Logfile|TTS
 Action=Popup|Logfile
 ")
+message("KDE_INSTALL_KNOTIFYRCDIR=${KDE_INSTALL_KNOTIFYRCDIR}")
 install(FILES "${CMAKE_PROJECT_NAME}.notifyrc"  DESTINATION ${KDE_INSTALL_KNOTIFYRCDIR})
 
 file(WRITE "${CMAKE_PROJECT_NAME}.desktop" "[Desktop Entry]
@@ -52,4 +56,5 @@ StartupNotify=true
 Categories=Tests;
 Keywords=jobnotify;
 ")
+message("KDE_INSTALL_APPDIR=${KDE_INSTALL_APPDIR}")
 install (FILES ${CMAKE_PROJECT_NAME}.desktop DESTINATION ${KDE_INSTALL_APPDIR})
