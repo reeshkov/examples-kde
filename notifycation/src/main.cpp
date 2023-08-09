@@ -33,11 +33,13 @@ TestJob::TestJob(QObject *parent)
 void TestJob::start()
 {
     qDebug() << "KJob::start";
+    setTotalAmount(KJob::Items,1);
+    setProcessedAmount(KJob::Items,1);
 
     Q_EMIT description(this,QStringLiteral("Moving"),
                        qMakePair(QStringLiteral("Source"),QUrl(QStringLiteral("/asourcefile")).toString())
                        , qMakePair(QStringLiteral("Destination"),QString().fill('X',500)));
-    setProcessedAmount(KJob::Items,1);
+    Q_EMIT infoMessage(this,QString().fill('Z',500),QString());
     QTimer::singleShot(1000, this, &TestJob::finish);
 }
 void TestJob::finish()
