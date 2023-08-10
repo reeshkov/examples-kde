@@ -29,9 +29,9 @@ target_link_libraries(
 
 
 include(KDEInstallDirs)
-message("KDE_INSTALL_TARGETS_DEFAULT_ARGS=${KDE_INSTALL_TARGETS_DEFAULT_ARGS}")
 
 install(TARGETS ${CMAKE_PROJECT_NAME} ${KDE_INSTALL_TARGETS_DEFAULT_ARGS})
+message("CMAKE_INSTALL_PREFIX=${CMAKE_INSTALL_PREFIX} KDE_INSTALL_BINDIR=${KDE_INSTALL_BINDIR} CMAKE_BINARY_DIR=${CMAKE_BINARY_DIR}")
 
 file(WRITE "${CMAKE_PROJECT_NAME}.notifyrc" "[Global]
 Name=${CMAKE_PROJECT_NAME}
@@ -49,12 +49,13 @@ file(WRITE "${CMAKE_PROJECT_NAME}.desktop" "[Desktop Entry]
 Name=Notify job test
 Comment=Notify job testing
 GenericName=Notify job test
-Exec=${CMAKE_PROJECT_NAME}
+#Exec=${CMAKE_PROJECT_NAME}
+Exec=bash -c \"export PATH=\$PATH:${CMAKE_INSTALL_PREFIX}/${KDE_INSTALL_BINDIR}:${CMAKE_BINARY_DIR}:\$(dirname %k);${CMAKE_PROJECT_NAME}\"
 Icon=system-file-manager
 Type=Application
 StartupNotify=true
-Categories=Tests;
-Keywords=jobnotify;
+Categories=Application;Tests;
+Keywords=test;notify;
 ")
 message("KDE_INSTALL_APPDIR=${KDE_INSTALL_APPDIR}")
 install (FILES ${CMAKE_PROJECT_NAME}.desktop DESTINATION ${KDE_INSTALL_APPDIR})
